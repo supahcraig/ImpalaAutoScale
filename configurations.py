@@ -3,10 +3,22 @@
 import configparser
 from configparser import ConfigParser
 
+config_filename = '.impala_autoscale.conf'
+
+
+def list_configurations():
+    config = ConfigParser()
+    config.read(config_filename)
+
+    for section in config.sections():
+        print(f'Impala profile [{section}]:')
+        print(f'username = {config[section]["username"]}')
+        print(f'password = { "*******" + config[section]["password"][-3:]}')
+        print(f'jdbc_url = {config[section]["jdbc_url"]}\n')
 
 def get_configuration(config_name):
     config = ConfigParser()
-    config.read('impala_autoscale.conf')
+    config.read(config_filename)
 
     if config_name in config:
         username = config[config_name]['username']
@@ -17,13 +29,14 @@ def get_configuration(config_name):
         return configD
 
     else:
-        raise KeyError(f'No configuration for [{config_name}] is found in impala_autoscale.conf')
+        raise KeyError(f'No configuration for [{config_name}] is found in {config_filename}')
 
 
 def add_configuration(config_name):
     config = ConfigParser()
-    config.read('impala_autoscale.conf')
+    config.read(config_filename)
 
+    # TODO: present existing values if the config section already exists, e.g. aws configure
     username = input('username= ')
     password = input('password= ')
     jdbc_url = input('jdbc_url= ')
@@ -40,18 +53,18 @@ def add_configuration(config_name):
         config.set(config_name, 'password', password)
         config.set(config_name, 'jdbc_url', jdbc_url)
 
-    with open('impala_autoscale.conf', 'w') as configfile:
+    with open(config_filename, 'w') as configfile:
         config.write(configfile)
 
 
-if __name__ == "__main__":
-    import argparse
-
-    parser = argparse.ArgumentParser()
-    parser.add_argument('-c', '--config',
-                        help="the name of the config section create/update")
-
-    args = parser.parse_args()
-
-    if args.config:
-        add_configuration(args.config)
+# if __name__ == "__main__":
+#     import argparse
+#
+#     parser = argparse.ArgumentParser()
+#     parser.add_argument('-c', '--config',
+#                         help="the name of the config section create/update")
+#
+#     args = parser.parse_args()
+#
+#     if args.config:
+#         add_configuration(args.config)
