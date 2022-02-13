@@ -1,3 +1,5 @@
+#!/usr/bin/env python
+
 import configparser
 from configparser import ConfigParser
 
@@ -22,19 +24,12 @@ def add_configuration(config_name):
     config = ConfigParser()
     config.read('impala_autoscale.conf')
 
-
-
-
-
-
-
     username = input('username= ')
     password = input('password= ')
     jdbc_url = input('jdbc_url= ')
 
     try:
         config.add_section(config_name)
-
 
     except configparser.DuplicateSectionError:
         # just don't add the section if it already exists

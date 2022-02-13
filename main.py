@@ -1,3 +1,5 @@
+#!/usr/bin/env python
+
 from xml.etree import ElementTree as et
 import argparse
 import configurations
@@ -53,7 +55,10 @@ if args.sqlFile and not args.sql:
     with open(args.sqlFile, 'r') as f:
         sql = f.read()
 
+if not args.sqlFile and not args.sql:
+    print('A query must be supplied using --sql OR --sqlFile')
     # TODO:  validate if > encoding to &gt; is going to work ok
+    raise Exception('No SQL supplied either via command line argument or SQL file.')
 
 
 # read boilerplate XML config for JMeter
