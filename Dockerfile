@@ -17,7 +17,9 @@ COPY configurations.py /usr/src/app/.
 COPY config.jmx /usr/src/app/.
 COPY impala-autoscale.sh /usr/src/app/.
 
-RUN chmod +x ias && chmod +x impala-autoscale.sh
+RUN chmod +x ias && chmod +x impala-autoscale.sh && \
+    echo 'export PS1="\[\e[1;38;5;202m\]ImpalaAutoscale \w \[\e[0m\]\\$> "' >> /root/.bashrc
+
 COPY ImpalaJDBC42.jar /usr/src/app/apache-jmeter-5.4.3/lib/.
 
 ENV PATH="/usr/src/app:${PATH}"
