@@ -31,15 +31,14 @@ chmod +x ./quickstart.sh
 ---
 ## Usage 
 
-ImpalaAutoScale works by setting up profiles in `.impala_autoscale.conf` through a configuration utility.   Multiple profiles are supported and then specified at runtime, making it simple to execute loads against multiple Impala instances.
+ImpalaAutoScale works by setting up execution profiles in `.impala_autoscale.conf` through a configuration utility.   Multiple profiles are supported and then specified at runtime, making it simple to execute loads against multiple Impala instances.  A profile consists of your CDP username, workload password, and a JDBC URL.  At runtime you must specify which profile to execute the load test against.
 
 ### Configure Profiles
-`ias configure <profile name>`
-
-ias configure will create a profile which consists of your CDP username, workload password, and a JDBC URL.   You can create multiple profiles and specify which you want to use at runtime when you execute the loadtest.  You will be prompted for your CDP username, workload password, and the JDBC URL.   The JDBC URL can be found in the dropdown on your virtual warehouse or within Cloudera Manager, and should look similar to this:
+You can create multiple profiles and specify which you want to use at runtime when you execute the loadtest.  You will be prompted for your CDP username, workload password, and the JDBC URL.   The JDBC URL can be found in the dropdown on your virtual warehouse or within Cloudera Manager, and should look similar to this:
 
 ![Virtual data warehouse dropdown for copying JDBC URL](copy-jdbc-url.png)
 
+`ias configure <profile name>` where `<profile name>` is whatever you want to name your execution profile.
 
 ```
 jdbc:impala://coordinator-cnelson2-impala.dw-environment-name.a465-9q4k.cloudera.site:443/default;AuthMech=3;transportMode=http;httpPath=cliservice;ssl=1;auth=browser
@@ -48,24 +47,26 @@ jdbc:impala://coordinator-cnelson2-impala.dw-environment-name.a465-9q4k.cloudera
 It is possible to manually edit the `.impala_autoscale.conf` using vim if you need to tweak the JDBC URL.
 
 ### List Profiles
-`ias configure ls`
+To list the currently stored profiles use the `ls` command
 
-This will list all the currently stored profiles.
+`ias configure ls`
 
 
 ### Running the load test
-`ias run -i <profile> -F <SQL file>`
+To run the load test you must specify a profile to use and a query to execute.  The query can be supplied as a command line argument directly, or as a file containing your query.
+
+At runtime, a boilerplate `config.jmx` file is modified to include the username/password/JDBC URL/SQL from the specified profile and query and saved as `myconfig.jmx`  Once the new jmx file is created, `run` will initiate the JMeter execution with this command (it will run it for you), and put the output into `./resultsfile` and also into a new folder called `./output`.  Subsequent runs will remove those two artifacts before execution. 
+
+`ias run -p <profile> -F <SQL file>`
 
 or...
 
-`ias run -i <profile> -s <SQL statement>`
+`ias run -p <profile> -s <SQL statement>`
 
-To run the load test you must specify a profile to use and a query to execute.  The query can be supplied as a command line argument directly, or as a file containing your query.
-
-At runtime, a boilerplate `config.jmx` file is modified to include the username/password/JDBC URL/SQL from the specified profile and query and saved as `myconfig.jmx`  Once the new jmx file is created, `run` will initiate the JMeter execution with this command (it will run it for you), and put the output into `./resultsfile` and also into a new folder called `./output`.  Subsequent runs will remove those two artifacts before execution.  You do _not_ need to issue this command, `ias run` will execute it for you.
-
+ You do _not_ need to issue this command, `ias run` will execute it for you.
 `HEAP="-Xms1g -Xmx1g -XX:MaxMetaspaceSize=256m" CLASSPATH=$(pwd) ./apache-jmeter-5.4.3/bin/jmeter -n -t myconfig.jmx -l ./resultsfile -e -o output`
 
+---
 ## Results
 
 While the test is running, evidence should be visible in the CDP Virtual Data Warehouse tile.  For a sufficiently complicated query & large enough dataset it is possible to see a scale-up event.
