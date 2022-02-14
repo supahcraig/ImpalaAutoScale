@@ -5,7 +5,7 @@ https://cloudera.atlassian.net/wiki/spaces/person/pages/2211938365/How+to+set+up
 
 It requires installing JMeter and OpenJDK8 which you may or may not want to do on your local machine.   This will build a docker container with all the fixins to run the load test routine as explained in the above link.  It also allows for multiple Impala configurations so you can load test different Impala instances (with different users) and switch between them easily.  The SQL to be executed is also parameterized via command line arguments or supplying a file with the query to be run.
 
-
+---
 ## Installation
 
 ### Clone the repository
@@ -16,20 +16,20 @@ Clone the repo to your local machine:
 ### Download the Impala JDBC jar
 * From your Impala virtual warehouse, download the ODBC JDBC driver, which will be named `impala_driver_jdbc_odbc.zip`
 * unzip it, which will unzip into two folders: `ClouderaImpalaODBC-2.6.13.1015` and `ClouderaImpala_JDBC-2.6.23.1028` _version numbers subject to change_
-* Inside the `JDBC` folder is `ImpalaJDBC42.jar`; this needs to be in the repository folder
+* Inside the `JDBC` folder is `ImpalaJDBC42.jar`; this needs to be in the repository folder, as it will be copied into the container image at build time.
 
 
 ### Run the container
-Run this command to build the container that will host the JMeter execution.  Once complete it will drop you into the shell for the container.
+Run this command to build the container that will host the JMeter execution.  Once complete it will drop you into the shell for the container.   Exiting the container will stop the running container.
 
 ```
 chmod +x ./quickstart.sh
 ./quickstart.sh
 ```
-
+---
 ## Usage
 
-ImpalaAutoScale works by setting up profiles in `.impala_autoscale.conf` through a configuration utility.   Multiple profiles are supported, and then specified at runtime, making it simple to run loads against multiple Impala instances.
+ImpalaAutoScale works by setting up profiles in `.impala_autoscale.conf` through a configuration utility.   Multiple profiles are supported and then specified at runtime, making it simple to execute loads against multiple Impala instances.
 
 ### Configure Profiles
 `ias configure <profile>`
@@ -64,4 +64,12 @@ At runtime, a boilerplate `config.jmx` file is modified to include the username/
 ## Results
 
 While the test is running, evidence should be visible in the CDP Virtual Data Warehouse tile.  For a sufficiently complicated query & large enough dataset it is possible to see a scale-up event.
+
+
+---
+## Appendix
+
+Finding enough data with a complex enough query to make it autoscale is the real challenge here.  I had success with a baseball data set that includes some Pitch F/X data and was able to build a query with a couple of correlated subqueries to make Implala show a scale up event.  Kaggle has a large amount of free datasets, some of which may be useful for this sort of exercise.
+
+[MLB Dataset from kaggle](https://www.kaggle.com/pschale/mlb-pitch-data-20152018)
 

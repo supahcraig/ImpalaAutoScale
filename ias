@@ -46,8 +46,9 @@ class cli(object):
         args = parser.parse_args(sys.argv[2:])
         sql = ''
 
-        if not args.impala_config:
+        if not args.impala_profile:
             print('Must specify a Impala config profile')
+            # TODO: list existing profiles?
             parser.print_help()
             exit(1)
 
@@ -68,16 +69,22 @@ class cli(object):
         document_root = runtime_jmx.read_xml()
 
         # get specific profile values from .impala_autoscale.conf
-        impala_profile = profiles.get_profile(args.impala_profile)
+        try:
+            impala_profile = profiles.get_profile(args.impala_profile)
 
-        # replace placeholder values with actual values & write out myconfig.jmx
-        runtime_jmx.replace_username(root=document_root, username=impala_profile['username'])
-        runtime_jmx.replace_password(root=document_root, password=impala_profile['password'])
-        runtime_jmx.replace_dbUrl(root=document_root, dbUrl=impala_profile['jdbc_url'])
-        runtime_jmx.replace_sql(root=document_root, sql=sql)
-        runtime_jmx.write_config(root=document_root)
+            # replace placeholder values with actual values & write out myconfig.jmx
+            runtime_jmx.replace_username(root=document_root, username=impala_profile['username'])
+            runtime_jmx.replace_password(root=document_root, password=impala_profile['password'])
+            runtime_jmx.replace_dbUrl(root=document_root, dbUrl=impala_profile['jdbc_url'])
+            runtime_jmx.replace_sql(root=document_root, sql=sql)
+            runtime_jmx.write_config(root=document_root)
 
-        os.system('impala-autoscale.sh')
+            os.system('impala-autoscale.sh')
+
+        except KeyError:
+            print(f'Profile [{args.impala_profile}] not found in {profiles.config_filename}.')
+            print(f'Use `ias configure ls` to see a list of profiles or `ias configure <profile name>` to create a new profile.')
+            exit(1)
 
 
 if __name__ == '__main__':

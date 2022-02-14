@@ -55,6 +55,7 @@ def add_profile(config_name):
         existing_jdbc_url = ''
 
     # allows user to "enter" through to keep existing values
+    # TODO: don't display ***** for a null password
     username = input(f'CDP Username [{existing_user}]: ') or existing_user
     password = input(f'password= [{mask_password(existing_password)}]: ') or existing_password
     jdbc_url = input(f'jdbc_url= [{existing_jdbc_url}]: ') or existing_jdbc_url
