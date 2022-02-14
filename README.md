@@ -10,7 +10,7 @@ It requires installing JMeter and OpenJDK8 which you may or may not want to do o
 
 ### Clone the repository
 Clone the repo to your local machine:
-`git clone XXXX`
+`git clone https://github.com/supahcraig/ImpalaAutoScale.git`
 
 
 ### Download the Impala JDBC jar
@@ -26,4 +26,36 @@ Run this command to build the container that will host the JMeter execution.  On
 chmod +x ./quickstart.sh
 ./quickstart.sh
 ```
+
+## Usage
+
+ImpalaAutoScale works by setting up profiles in `.impala_autoscale.conf` through a configuration utility.   Multiple profiles are supported, and then specified at runtime, making it simple to run loads against multiple Impala instances.
+
+### Configure Profiles
+`ias configure <profile>`
+
+You will be prompted for your CDP username, workload password, and the JDBC URL.   The JDBC URL can be found in the dropdown on your virtual warehouse or within Cloudera Manager, and should look similar to this:
+
+```
+jdbc:impala://coordinator-cnelson2-impala.dw-environment-name.a465-9q4k.cloudera.site:443/default;AuthMech=3;transportMode=http;httpPath=cliservice;ssl=1;auth=browser
+```
+
+It is possible to manually edit the `.impala_autoscale.conf` using vim if you need to tweak the JDBC URL.
+
+### List Profiles
+`ias configure ls`
+
+This will list all the currently stored profiles.
+
+
+### Running the load test
+`ias run -i <profile> -F <SQL file>`
+
+or...
+
+`ias run -i <profile> -s <SQL statement>`
+
+To run the load test you must specify a profile to use and a query to execute.  The query can be supplied as a command line argument directly, or as a file containing your query.
+
+At runtime, a boilerplate `config.jmx` file is modified to include the username/password/JDBC URL/SQL from the specified profile and query and saved as `myconfig.jmx`
 
