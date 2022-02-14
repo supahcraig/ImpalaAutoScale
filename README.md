@@ -65,7 +65,7 @@ At runtime, a boilerplate `config.jmx` file is modified to include the username/
 
 While the test is running, evidence should be visible in the CDP Virtual Data Warehouse tile.  For a sufficiently complicated query & large enough dataset it is possible to see a scale-up event.
 
-![Impala autoscale event visual](impala-auto-scale.jpg)
+![Impala autoscale event visual](impala-auto-scale.png)
 
 ---
 ## Appendix
