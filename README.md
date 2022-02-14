@@ -29,7 +29,7 @@ chmod +x ./quickstart.sh
 ./quickstart.sh
 ```
 ---
-## Usage
+## Usage 
 
 ImpalaAutoScale works by setting up profiles in `.impala_autoscale.conf` through a configuration utility.   Multiple profiles are supported and then specified at runtime, making it simple to execute loads against multiple Impala instances.
 
