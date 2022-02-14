@@ -62,7 +62,7 @@ or...
 
 To run the load test you must specify a profile to use and a query to execute.  The query can be supplied as a command line argument directly, or as a file containing your query.
 
-At runtime, a boilerplate `config.jmx` file is modified to include the username/password/JDBC URL/SQL from the specified profile and query and saved as `myconfig.jmx`  Once the new jmx file is created, `run` will initiate the JMeter execution with this command (it will run it for you), and put the output into `./resultsfile` and also into a new folder called `./output`.  Subsequent runs will remove those two artifacts before execution.
+At runtime, a boilerplate `config.jmx` file is modified to include the username/password/JDBC URL/SQL from the specified profile and query and saved as `myconfig.jmx`  Once the new jmx file is created, `run` will initiate the JMeter execution with this command (it will run it for you), and put the output into `./resultsfile` and also into a new folder called `./output`.  Subsequent runs will remove those two artifacts before execution.  You do _not_ need to issue this command, `ias run` will execute it for you.
 
 `HEAP="-Xms1g -Xmx1g -XX:MaxMetaspaceSize=256m" CLASSPATH=$(pwd) ./apache-jmeter-5.4.3/bin/jmeter -n -t myconfig.jmx -l ./resultsfile -e -o output`
 
