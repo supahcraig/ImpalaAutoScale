@@ -21,7 +21,6 @@ def replace_dbUrl(root, dbUrl):
 
 def replace_sql(root, sql):
     root.find('.//stringProp[@name="query"]').text = sql
-    # TODO:  validate if > encoding to &gt; is going to work ok
 
 
 def write_config(root):

@@ -34,9 +34,9 @@ chmod +x ./quickstart.sh
 ImpalaAutoScale works by setting up profiles in `.impala_autoscale.conf` through a configuration utility.   Multiple profiles are supported and then specified at runtime, making it simple to execute loads against multiple Impala instances.
 
 ### Configure Profiles
-`ias configure <profile>`
+`ias configure <profile name>`
 
-You will be prompted for your CDP username, workload password, and the JDBC URL.   The JDBC URL can be found in the dropdown on your virtual warehouse or within Cloudera Manager, and should look similar to this:
+ias configure will create a profile which consists of your CDP username, workload password, and a JDBC URL.   You can create multiple profiles and specify which you want to use at runtime.  You will be prompted for your CDP username, workload password, and the JDBC URL.   The JDBC URL can be found in the dropdown on your virtual warehouse or within Cloudera Manager, and should look similar to this:
 
 ![Virtual data warehouse dropdown for copying JDBC URL](copy-jdbc-url.png)
 

@@ -29,7 +29,6 @@ def get_profile(profile_name):
         password = profile[profile_name]['password']
         jdbc_url = profile[profile_name]['jdbc_url']
 
-        #configD = {'username': username, 'password': password, 'jdbc_url': jdbc_url}
         return {'username': username, 'password': password, 'jdbc_url': jdbc_url}
 
     else:

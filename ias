@@ -11,7 +11,7 @@ class cli(object):
     def __init__(self):
         # want "ias configure name" to run the configuration setup for "name"
         # want "ias run <with all the other params>" to actually run the thing
-        # https://chase-seibert.github.io/blog/2014/03/21/python-multilevel-argparse.html
+        # special thankss to https://chase-seibert.github.io/blog/2014/03/21/python-multilevel-argparse.html
 
         parser = argparse.ArgumentParser(usage='ias <command> [<args>]')
 
