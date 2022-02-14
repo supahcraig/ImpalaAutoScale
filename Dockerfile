@@ -9,7 +9,8 @@ RUN apt-get update -y && \
     apt-get install -y openjdk-8-jdk && \
     apt-get install -y vim && \
     wget https://dlcdn.apache.org//jmeter/binaries/apache-jmeter-5.4.3.tgz && \
-    tar -xvzf apache-jmeter-5.4.3.tgz
+    tar -xvzf apache-jmeter-5.4.3.tgz && \
+    rm apache-jmeter-5.4.3.tgz
 
 COPY ias /usr/src/app/.
 COPY runtime_jmx.py /usr/src/app/.

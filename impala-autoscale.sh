@@ -1,12 +1,12 @@
 #!/bin/bash
 
 FILE=/usr/src/app/resultsfile
-if [-f "$FILE" ]; then
+if [ -f "$FILE" ]; then
   rm "$FILE"
 fi
 
 FOLDER=/usr/src/app/output
-if [-d "$FOLDER" ]; then
+if [ -d "$FOLDER" ]; then
   rm -rf "$FOLDER"
 fi
 
