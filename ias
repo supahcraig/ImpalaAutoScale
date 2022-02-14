@@ -3,7 +3,7 @@
 import argparse
 import sys
 import os
-import configurations
+import profiles
 import runtime_jmx
 
 
@@ -26,20 +26,20 @@ class cli(object):
 
     def configure(self):
         parser = argparse.ArgumentParser(description='For setting up user/jdbc impala connectivity.')
-        parser.add_argument('config_section')
+        parser.add_argument('profile_section')
         args = parser.parse_args(sys.argv[2:])
 
-        if args.config_section == 'ls':
-            # list impala config sections
+        if args.profile_section == 'ls':
+            # list impala profile sections
             # a little sloppy here, you could want to name your config profile "ls"
-            configurations.list_configurations()
+            profiles.list_profiles()
 
         else:
-            configurations.add_configuration(args.config_section)
+            profiles.add_profile(args.profile_section)
 
     def run(self):
         parser = argparse.ArgumentParser(description='For executing the JMeter load against Impala')
-        parser.add_argument('-i', '--impala_config', help=f"the name of an Impala config profile from {configurations.config_filename} to be used (required)")
+        parser.add_argument('-p', '--impala_profile', help=f"the name of an Impala config profile from {profiles.config_filename} to be used (required)")
         parser.add_argument('-s', '--sql', help="SQL statement to be used, overrides SQL provided using -F or --sqlFile")
         parser.add_argument('-F', '--sqlFile', help="file containing SQL to be used, unless -s or --sql is present")
 
@@ -60,24 +60,25 @@ class cli(object):
             print(f'Using argument-supplied SQL statement')
             sql = args.sql
         elif args.sqlFile:
-             print(f'Using SQL from {args.sqlFile}')
-             with open(args.sqlFile, 'r') as f:
-                 sql = f.read()
+            print(f'Using SQL from {args.sqlFile}')
+            with open(args.sqlFile, 'r') as f:
+                sql = f.read()
 
         # build the runtime myconfig.jmx
         document_root = runtime_jmx.read_xml()
 
-        # get specific config values from .impala_autoscale.conf
-        impala_config = configurations.get_configuration(args.impala_config)
+        # get specific profile values from .impala_autoscale.conf
+        impala_profile = profiles.get_profile(args.impala_profile)
 
         # replace placeholder values with actual values & write out myconfig.jmx
-        runtime_jmx.replace_username(root=document_root, username=impala_config['username'])
-        runtime_jmx.replace_password(root=document_root, password=impala_config['password'])
-        runtime_jmx.replace_dbUrl(root=document_root, dbUrl=impala_config['jdbc_url'])
+        runtime_jmx.replace_username(root=document_root, username=impala_profile['username'])
+        runtime_jmx.replace_password(root=document_root, password=impala_profile['password'])
+        runtime_jmx.replace_dbUrl(root=document_root, dbUrl=impala_profile['jdbc_url'])
         runtime_jmx.replace_sql(root=document_root, sql=sql)
         runtime_jmx.write_config(root=document_root)
 
         os.system('impala-autoscale.sh')
+
 
 if __name__ == '__main__':
     cli()
