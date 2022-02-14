@@ -18,7 +18,7 @@ Clone the repo to your local machine:
 * unzip it, which will unzip into two folders: `ClouderaImpalaODBC-2.6.13.1015` and `ClouderaImpala_JDBC-2.6.23.1028` _version numbers subject to change_
 * Inside the `JDBC` folder is `ImpalaJDBC42.jar`; this needs to be in the repository folder, as it will be copied into the container image at build time.
 
-[Virtual data warehouse dropdown for copying JDBC URL](copy-jdbc-url.png)
+![Virtual data warehouse dropdown for copying JDBC URL](copy-jdbc-url.png)
 
 
 ### Run the container
