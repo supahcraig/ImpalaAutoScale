@@ -55,16 +55,3 @@ def add_configuration(config_name):
 
     with open(config_filename, 'w') as configfile:
         config.write(configfile)
-
-
-# if __name__ == "__main__":
-#     import argparse
-#
-#     parser = argparse.ArgumentParser()
-#     parser.add_argument('-c', '--config',
-#                         help="the name of the config section create/update")
-#
-#     args = parser.parse_args()
-#
-#     if args.config:
-#         add_configuration(args.config)
