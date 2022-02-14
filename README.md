@@ -18,7 +18,7 @@ Clone the repo to your local machine:
 * unzip it, which will unzip into two folders: `ClouderaImpalaODBC-2.6.13.1015` and `ClouderaImpala_JDBC-2.6.23.1028` _version numbers subject to change_
 * Inside the `JDBC` folder is `ImpalaJDBC42.jar`; this needs to be in the repository folder, as it will be copied into the container image at build time.
 
-![Virtual data warehouse dropdown for copying JDBC URL](copy-jdbc-url.png)
+![Virtual data warehouse dropdown for download JDBC driver](download-jdbc.png)
 
 
 ### Run the container
@@ -37,6 +37,9 @@ ImpalaAutoScale works by setting up profiles in `.impala_autoscale.conf` through
 `ias configure <profile>`
 
 You will be prompted for your CDP username, workload password, and the JDBC URL.   The JDBC URL can be found in the dropdown on your virtual warehouse or within Cloudera Manager, and should look similar to this:
+
+![Virtual data warehouse dropdown for copying JDBC URL](copy-jdbc-url.png)
+
 
 ```
 jdbc:impala://coordinator-cnelson2-impala.dw-environment-name.a465-9q4k.cloudera.site:443/default;AuthMech=3;transportMode=http;httpPath=cliservice;ssl=1;auth=browser

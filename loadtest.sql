@@ -15,5 +15,11 @@ where 1 = 1
                 and p.pitch_type = 'CU'
                 and cast(p.ab_id as decimal(12, 1)) = cast(a.ab_id as decimal(12, 1))
                 and 1 = 1)
+  and not exists (select null
+              from bb.pitches_r p
+              where 1 = 1
+                and p.pitch_type = 'FF'
+                and cast(p.ab_id as decimal(12, 1)) = cast(a.ab_id as decimal(12, 1))
+                and 1 = 1)
 group by g.game_id, g.venue_name
 order by 2, 1
