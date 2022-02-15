@@ -59,7 +59,7 @@ ImpalaAutoScale works by configuring execution profiles in `.impala_autoscale.co
 ### Configure Profiles
 You can create multiple profiles and specify which you want to use at runtime when you execute the loadtest.  You will be prompted for your CDP username, workload password, and the JDBC URL.   The JDBC URL can be found in the dropdown on your virtual warehouse or within Cloudera Manager, and should look similar to this:
 
-![Virtual data warehouse dropdown for copying JDBC URL](copy-jdbc-url.png)
+![Virtual data warehouse dropdown for copying JDBC URL](./images/copy-jdbc-url.png)
 
 `ias configure <profile name>` where `<profile name>` is whatever you want to name your execution profile.
 
@@ -67,7 +67,7 @@ You can create multiple profiles and specify which you want to use at runtime wh
 jdbc:impala://coordinator-cnelson2-impala.dw-environment-name.a465-9q4k.cloudera.site:443/default;AuthMech=3;transportMode=http;httpPath=cliservice;ssl=1;auth=browser
 ```
 
-![Example execution profile setup](example-ias-configure.png)
+![Example execution profile setup](./images/example-ias-configure.png)
 
 If is necessary to tweak an execution profile, you can simply re-run `ias configure` for that profiles.  It is also possible to manually edit the `.impala_autoscale.conf` using vim if so desired.
 
@@ -95,9 +95,9 @@ or...
 
 While the test is running, evidence should be visible in the CDP Virtual Data Warehouse tile.  For a sufficiently complicated query & large enough dataset it is possible to see a scale-up event.
 
-![Example execution output](example-ias-run.png)
+![Example execution output](./images/example-ias-run.png)
 
-![Impala autoscale event visual](impala-auto-scale.png)
+![Impala autoscale event visual](./images/impala-auto-scale.png)
 
 ---
 
