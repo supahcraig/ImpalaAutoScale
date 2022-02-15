@@ -1,4 +1,4 @@
-# Impala Autoscale with JMeter
+# Impala Autoscale/Load Test with JMeter
 
 ## Background
 
@@ -98,6 +98,8 @@ While the test is running, evidence should be visible in the CDP Virtual Data Wa
 ![Example execution output](./images/example-ias-run.png)
 
 ![Impala autoscale event visual](./images/impala-auto-scale.png)
+
+And you're done!   You can re-run the test, modify the query, point to a different Impala instance...or exit, which will stop the container.
 
 ---
 
