@@ -106,7 +106,7 @@ And you're done!   You can re-run the test, modify the query, point to a differe
 
 ## Troubleshooting
 
-If you see 100% errors, check `resultsfile` for specifics on the errors.  The most common issues results in a 401 or 503 response from the server.
+If you see 100% errors, check `resultsfile` for specifics on the errors.  The most common issues result in a 401 or 503 response from the server.
 * This is likely an incorrect workload password
 * The AuthMech in your JDBC URL may need to be changed from `12` to `3` in order to authticate 
 * In some cases simply re-setting the workload password in CDP (and then updating your ias execution profile) has been observed to correct the issue
