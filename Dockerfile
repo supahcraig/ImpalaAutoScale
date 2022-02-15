@@ -15,7 +15,7 @@ RUN apt-get update -y && \
 COPY ias /usr/src/app/.
 COPY runtime_jmx.py /usr/src/app/.
 COPY profiles.py /usr/src/app/.
-COPY config.jmx /usr/src/app/.
+COPY boilerplate.jmx /usr/src/app/.
 COPY impala-autoscale.sh /usr/src/app/.
 
 RUN chmod +x ias && chmod +x impala-autoscale.sh && \

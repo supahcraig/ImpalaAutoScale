@@ -2,7 +2,7 @@ from xml.etree import ElementTree as ET
 
 
 def read_xml():
-    tree = ET.parse('config.jmx')
+    tree = ET.parse('boilerplate.jmx')
     root = tree.getroot()
     return root
 
