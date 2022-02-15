@@ -57,15 +57,18 @@ ImpalaAutoScale works by configuring execution profiles in `.impala_autoscale.co
 
 
 ### Configure Profiles
-You can create multiple profiles and specify which you want to use at runtime when you execute the loadtest.  You will be prompted for your CDP username, workload password, and the JDBC URL.   The JDBC URL can be found in the dropdown on your virtual warehouse or within Cloudera Manager, and should look similar to this:
-
-![Virtual data warehouse dropdown for copying JDBC URL](./images/copy-jdbc-url.png)
-
-`ias configure <profile name>` where `<profile name>` is whatever you want to name your execution profile.
+You can create multiple profiles and specify which you want to use at runtime when you execute the loadtest.  You will be prompted for your CDP username, workload password, and the JDBC URL.   The JDBC URL can be found in the dropdown on your virtual warehouse...
 
 ```
 jdbc:impala://coordinator-cnelson2-impala.dw-environment-name.a465-9q4k.cloudera.site:443/default;AuthMech=3;transportMode=http;httpPath=cliservice;ssl=1;auth=browser
 ```
+
+![Virtual data warehouse dropdown for copying JDBC URL](./images/copy-jdbc-url.png)
+
+Once you have the JDBC URL, you can go about creating an execution profile using `ias configure`:
+
+`ias configure <profile name>` where `<profile name>` is whatever you want to name your execution profile.
+
 
 ![Example execution profile setup](./images/example-ias-configure.png)
 
