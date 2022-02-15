@@ -27,7 +27,11 @@ The premise here is that you have a warehouse with data & tables and you want to
 
 ### Clone the repository
 Clone the repo to your local machine:
-`git clone https://github.com/supahcraig/ImpalaAutoScale.git`
+
+```
+git clone https://github.com/supahcraig/ImpalaAutoScale.git
+cd ImpalaAutoScale
+```
 
 
 ### Download the Impala JDBC jar
@@ -36,7 +40,7 @@ Clone the repo to your local machine:
 * unzip ClouderaImpalaJDBC42-2.6.23.1028.zip _(version numbers subject to change)_, which will produce `ImpalaJDBC42.jar`
 * Copy `ImpalaJDBC42.jar` to the root level of the repository you just cloned, as it will be copied into the container image at build time.
 
-![Virtual data warehouse dropdown for download JDBC driver](download-jdbc.png)
+![Virtual data warehouse dropdown for download JDBC driver](./images/download-jdbc.png)
 
 
 ### Run the container
@@ -63,6 +67,8 @@ You can create multiple profiles and specify which you want to use at runtime wh
 jdbc:impala://coordinator-cnelson2-impala.dw-environment-name.a465-9q4k.cloudera.site:443/default;AuthMech=3;transportMode=http;httpPath=cliservice;ssl=1;auth=browser
 ```
 
+![Example execution profile setup](example-ias-configure.png)
+
 If is necessary to tweak an execution profile, you can simply re-run `ias configure` for that profiles.  It is also possible to manually edit the `.impala_autoscale.conf` using vim if so desired.
 
 
@@ -88,6 +94,8 @@ or...
 ## Results
 
 While the test is running, evidence should be visible in the CDP Virtual Data Warehouse tile.  For a sufficiently complicated query & large enough dataset it is possible to see a scale-up event.
+
+![Example execution output](example-ias-run.png)
 
 ![Impala autoscale event visual](impala-auto-scale.png)
 
