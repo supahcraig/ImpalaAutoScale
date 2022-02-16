@@ -19,6 +19,8 @@ You should already have Docker installed, the internet has many resources detail
 ### Impala
 This assumes you already have an Impala virtual data warehouse running in CDP.  _Instructions on this prereq can be found in the CDP Data Warehouse Lab (not yet available)._
 
+[Work in progress CDP Data Warehouse setup](https://github.com/supahcraig/CLDR/blob/main/Labs/Data%20Warehouse/Virtual%20DW.md)
+
 ### Data/Queries
 The premise here is that you have a warehouse with data & tables and you want to use this tool to load test it using your own SQL.  There is an appendix at the end of this document which provides links to some datasets, DDL, and SQL to load test with.  
 
